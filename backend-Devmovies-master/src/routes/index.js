@@ -15,6 +15,7 @@ const CreateRatingController = require("../controllers/rating/CreateRatingContro
 const GetAllMoviesController = require("../controllers/movie/GetAllMoviesController");
 const GetMovieByIdController = require("../controllers/movie/GetMovieByIdController");
 const GetUserByIdController = require("../controllers/user/GetUserByIdController");
+const DeleteRatingController = require("../controllers/rating/DeleteRatingController");
 
 //controller
 const createUserController = new CreateUserController();
@@ -26,6 +27,7 @@ const createRatingController = new CreateRatingController();
 const getAllMoviesController = new GetAllMoviesController();
 const getMovieByIdController = new GetMovieByIdController();
 const getUserByIdController = new GetUserByIdController();
+const deleteRatingController = new DeleteRatingController();
 
 router.get("/", (req, res) => {
   res.send({ ok: true });
@@ -36,6 +38,7 @@ router.post("/auth", authController.handle);
 
 router.post("/user/:userId/likes", createLikeController.handle);
 router.get("/user/:userId/rating", getUserByIdController.handle);
+router.delete("/rating/:ratingId",deleteRatingController.handle)
 
 router.post(
   "/movie/:userId",
