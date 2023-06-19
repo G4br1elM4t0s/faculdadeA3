@@ -16,6 +16,7 @@ const GetAllMoviesController = require("../controllers/movie/GetAllMoviesControl
 const GetMovieByIdController = require("../controllers/movie/GetMovieByIdController");
 const GetUserByIdController = require("../controllers/user/GetUserByIdController");
 const DeleteRatingController = require("../controllers/rating/DeleteRatingController");
+const CreateStreamerController = require("../controllers/streamer/CreateStreamerController");
 
 //controller
 const createUserController = new CreateUserController();
@@ -28,6 +29,8 @@ const getAllMoviesController = new GetAllMoviesController();
 const getMovieByIdController = new GetMovieByIdController();
 const getUserByIdController = new GetUserByIdController();
 const deleteRatingController = new DeleteRatingController();
+const createStreamerController = new CreateStreamerController();
+
 
 router.get("/", (req, res) => {
   res.send({ ok: true });
@@ -38,7 +41,7 @@ router.post("/auth", authController.handle);
 
 router.post("/user/:userId/likes", createLikeController.handle);
 router.get("/user/:userId/rating", getUserByIdController.handle);
-router.delete("/rating/:ratingId",deleteRatingController.handle)
+router.delete("/rating/:ratingId",deleteRatingController.handle);
 
 router.post(
   "/movie/:userId",
@@ -49,5 +52,7 @@ router.get("/movies", getAllMoviesController.handle);
 router.get("/movie/:id", getMovieByIdController.handle);
 
 router.post("/movie/:movieName/ratings", createRatingController.handle);
+
+router.post("/streamer",createStreamerController.handle);
 
 module.exports = router;

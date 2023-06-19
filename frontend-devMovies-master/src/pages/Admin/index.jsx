@@ -20,6 +20,9 @@ export default function Admin() {
     formState: { errors },
   } = useForm();
 
+  const[name,setName] = useState("");
+  const[link,setLink] = useState("");
+
   const onSubmit = async (data) => {
     const arquivo = data["imgcapa"];
     formData.append("name", data.nomemidia);
@@ -43,8 +46,14 @@ export default function Admin() {
     setStreamerDisplay(!streamerDisplay);
   };
 
-  const handleSubmitMidia = () => {};
-  const handleSubmitGenres = () => {};
+const handleStreamerSubmit = async (e) =>{
+  e.preventDefault();
+  const response = await api.post("/streamer",{
+    name,
+    link
+  });
+  console.log(response.data);
+}
 
   return (
     <>
@@ -176,6 +185,37 @@ export default function Admin() {
 
                 <button className={styles.btn_secundario} type="submit">
                   Cadastrar mídia
+                </button>
+              </form>
+            )}
+            
+          </div>
+          <div className={styles.dropdown}>
+            <div
+              className={styles.campoStreamer}
+              onClick={toggleStreamerDisplay}
+            >
+              <h5>Streamers</h5>
+              <img
+                className={
+                  streamerDisplay
+                    ? `${styles.seta} ${styles.animate}`
+                    : styles.seta
+                }
+                src={Arrow}
+                alt="seta"
+              />
+            </div>
+
+            {streamerDisplay && (
+              <form className={styles.cadastro_streamer} onSubmit={handleStreamerSubmit}>
+                <label htmlFor="nomestreamer">nome</label>
+                <input type="text" name="nomestreamer" value={name} onChange={e=>setName(e.target.value)} id="nomestreamer" />
+                <label htmlFor="link">link</label>
+                <input type="text" name="link" value={link} onChange={e=>setLink(e.target.value)} id="link" />
+
+                <button className={styles.btn_secundario} type="submit">
+                  Cadastrar Streamers
                 </button>
               </form>
             )}
